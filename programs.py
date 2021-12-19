@@ -20,6 +20,10 @@ while True:
             else:
                 print('Name already in list') 
         elif prog.startswith('exit'):
-            exit()  
+            exit() 
+        elif prog.startswith('remove'):
+            com,name = prog.split()
+            if input('Are you sure? :').lower() == 'y':
+                 del db[name]
         else:
             print('Not available in database')
