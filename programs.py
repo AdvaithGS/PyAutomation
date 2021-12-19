@@ -23,7 +23,13 @@ while True:
             exit() 
         elif prog.startswith('remove'):
             com,name = prog.split()
-            if input('Are you sure? :').lower() == 'y':
+            if input(f'Are you sure you want to remove {db[name]}? : ').lower() == 'y':
                  del db[name]
+                 print('Deleted.')
+        elif prog.startswith('list'):
+            i = 1
+            for key in db.keys():
+                print(f'   {i}. {key} - {db[key][1]}',end = '\n')
+                i += 1
         else:
             print('Not available in database')
