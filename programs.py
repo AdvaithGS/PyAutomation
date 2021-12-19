@@ -5,7 +5,7 @@ db = SqliteDict('./db.sqlite',autocommit = True)
 while True:
     prog = input('Enter command: ')
     try:
-        if db[prog][0] == 1:
+        if db[prog][0] == 'app':
             popen(db[prog][1])            
         else:
             open_new_tab(db[prog][1])
@@ -13,9 +13,10 @@ while True:
     except:
         if prog.startswith('add'):
             lst = list(prog.split(' ',3))
+            type,name,loc = lst[1],lst[2],lst[3]
             if name not in db.keys():
-                name,num,loc = lst[1],int(lst[2]),lst[3]
-                db[name] = [num,loc]
+                db[name] = [type,loc]
+                print(f'Added {name} at {loc} to database')
             else:
                 print('Name already in list') 
         elif prog.startswith('exit'):
