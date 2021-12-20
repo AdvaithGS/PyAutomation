@@ -4,7 +4,7 @@ from os import popen
 from pyautogui import hotkey
 time = int(strftime('%H'))
 popen('C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe')
-if time in range(8,10):
+if time in range(7,10):
     open_new_tab('https://discord.com/app')
     open_new_tab('https://mail.google.com')
     open_new_tab('https://teams.microsoft.com')
