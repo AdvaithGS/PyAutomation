@@ -28,11 +28,27 @@ while True:
             else:
                 print('Name already in list') 
         elif prog.startswith('exit'):
-            exit() 
+            quit() 
         elif prog.startswith('define'):
             req = get(f'http://wordnetweb.princeton.edu/perl/webwn?s={prog.split()[1]}').text
             soup = BeautifulSoup(req,'lxml')
-            print(soup.find('li').text)
+            try:
+                print(soup.find('li').text)
+            except:
+                print('Cant find definition.')
+        elif prog.startswith('note'):
+            if prog.split()[1] == 'add':
+                db['note'] += [prog.split(' ',2)[2]]
+                print('Added note.')
+            elif prog.split()[1] == 'list':
+                x = 1
+                for i in db['note']:
+                    print(f'{x}. {i}')
+                    x += 1
+            elif prog.split()[1] == 'remove':
+                print(db['note'][int(prog.split(' ',2)[2]) - 1])
+                db['note'] = db['note'][:int(prog.split(' ',2)[2]) - 1] + db['note'][int(prog.split(' ',2)[2]):]
+                print('Removed.')
         elif prog.startswith('remove'):
             com,name = prog.split()
             if input(f'Are you sure you want to remove {name} at {db[name][1]}? : ').lower() == 'y':
