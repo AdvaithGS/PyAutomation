@@ -1,5 +1,7 @@
 from sqlitedict import SqliteDict
 from os import popen
+from requests import get
+from bs4 import BeautifulSoup
 from webbrowser import open_new_tab
 from pyautogui import hotkey
 db = SqliteDict('./db.sqlite', autocommit = True)
@@ -27,6 +29,10 @@ while True:
                 print('Name already in list') 
         elif prog.startswith('exit'):
             exit() 
+        elif prog.startswith('define'):
+            req = get(f'http://wordnetweb.princeton.edu/perl/webwn?s={prog.split()[1]}').text
+            soup = BeautifulSoup(req,'lxml')
+            print(soup.find('li').text)
         elif prog.startswith('remove'):
             com,name = prog.split()
             if input(f'Are you sure you want to remove {name} at {db[name][1]}? : ').lower() == 'y':
