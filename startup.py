@@ -1,19 +1,24 @@
-from time import strftime
 from webbrowser import open_new_tab
 from os import popen
 from pyautogui import hotkey
-time = int(strftime('%H'))
-if time in range(7,10):
+choice= int(input('Enter choice: '))
+if choice == 1:
     open_new_tab('https://discord.com/app')
     open_new_tab('https://mail.google.com')
     open_new_tab('https://teams.microsoft.com')
-elif time in range(9,12):
+    open_new_tab('https://top.gg/bot/792458754208956466/vote')
+    open_new_tab('https://discordbotlist.com/bots/astrobot-2515/upvote')
+elif choice == 2:
     hotkey('Win','6')#opens whatsapp on my pc
     open_new_tab('https://discord.com/app')
     open_new_tab('https://mail.google.com')
     popen('C:\\Users\\K Padmavathy\\AppData\\Roaming\\Zoom\\bin\\Zoom.exe')
+    open_new_tab('https://top.gg/bot/792458754208956466/vote')
+    open_new_tab('https://discordbotlist.com/bots/astrobot-2515/upvote')
 else:
     popen('C:\Windows\explorer.exe')
     open_new_tab('https://discord.com/app')
     open_new_tab('https://mail.google.com')
-exit()
+    open_new_tab('https://top.gg/bot/792458754208956466/vote')
+    open_new_tab('https://discordbotlist.com/bots/astrobot-2515/upvote')
+import programs

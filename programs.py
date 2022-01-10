@@ -57,7 +57,8 @@ while True:
         elif prog.startswith('list'):
             i = 1
             for key in list(db.keys()):
-                print(f'   {i}. {key} - {db[key][1]}',end = '\n')
-                i += 1
+                if key != 'note':
+                    print(f'   {i}. {key} - {db[key][1]}',end = '\n')
+                    i += 1
         else:
             print('Not available in database')
