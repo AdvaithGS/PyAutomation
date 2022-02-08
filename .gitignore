@@ -1,3 +1,4 @@
 db.sqlite
 *.un~
 .gitignore~
+__pychache__
