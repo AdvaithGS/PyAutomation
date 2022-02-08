@@ -54,6 +54,8 @@ while True:
             if input(f'Are you sure you want to remove {name} at {db[name][1]}? : ').lower() == 'y':
                  del db[name]
                  print('Deleted.')
+        elif prog.startswith('schema'):
+            print('Add <type - app/url> <name> <url/location> ')
         elif prog.startswith('list'):
             i = 1
             for key in list(db.keys()):
