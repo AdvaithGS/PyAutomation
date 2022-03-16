@@ -4,6 +4,11 @@ from requests import get
 from bs4 import BeautifulSoup
 from webbrowser import open_new_tab
 from pyautogui import hotkey
+import pyautogui as pgui
+from time import sleep
+import sqlite3
+conn = sqlite3.connect('db.sql')
+c = conn.cursor()
 db = SqliteDict('./db.sqlite', autocommit = True)
 while True:
     prog = input('Enter command >> ')
@@ -62,5 +67,17 @@ while True:
                 if key != 'note':
                     print(f'   {i}. {key} - {db[key][1]}',end = '\n')
                     i += 1
+        elif prog.startswith('whatsapp'):
+            lst = prog.split(' ',2)
+            name = lst[1]
+            mes = lst[2].replace(' ','%20')
+            c.execute(f'select * from contacts where name = "{name}"')
+            lst = c.fetchall()[0]
+            print('It shall be done.')
+            open_new_tab(f'https://web.whatsapp.com/send?phone={lst[1]}&text={mes}')
+            sleep(80)
+            width,height = pgui.size()
+            pgui.click(width/2,height/2)
+            pgui.press('enter')
         else:
             print('Not available in database')
