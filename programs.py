@@ -68,15 +68,18 @@ while True:
                     print(f'   {i}. {key} - {db[key][1]}',end = '\n')
                     i += 1
         elif prog.startswith('whatsapp'):
-            lst = prog.split(' ',2)
+            lst = prog.split(' ',3)
             name = lst[1]
-            mes = lst[2].replace(' ','%20')
+            when = int(lst[2])
+            mes = lst[3].replace(' ','%20')
             c.execute(f'select * from contacts where name = "{name}"')
             lst = c.fetchall()[0]
             print('It shall be done.')
+            sleep(when)
             open_new_tab(f'https://web.whatsapp.com/send?phone={lst[1]}&text={mes}')
-            sleep(80)
+            sleep(60)
             width,height = pgui.size()
+            hotkey('Win+up')
             pgui.click(width/2,height/2)
             pgui.press('enter')
         else:
