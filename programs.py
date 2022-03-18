@@ -10,6 +10,10 @@ import sqlite3
 conn = sqlite3.connect('db.sql')
 c = conn.cursor()
 db = SqliteDict('./db.sqlite', autocommit = True)
+
+def fn(k):
+    return len(k[0])
+
 while True:
     prog = input('Enter command >> ')
     try:
@@ -76,11 +80,21 @@ while True:
             lst = c.fetchall()[0]
             print('It shall be done.')
             sleep(when)
-            open_new_tab(f'https://web.whatsapp.com/send?phone={lst[1]}&text={mes}')
-            sleep(60)
+            if lst[1].startswith('+'):
+                open_new_tab(f'https://web.whatsapp.com/send?phone={lst[1]}&text={mes}')
+            else:
+                open_new_tab(f'https://web.whatsapp.com/accept?code={lst[1]}')
+            sleep(80)
             width,height = pgui.size()
-            hotkey('Win+up')
             pgui.click(width/2,height/2)
+            if not lst[1].startswith('+'):
+                pgui.type(mes)
             pgui.press('enter')
+        elif prog == 'contacts':
+            c.execute('select * from contacts')
+            x = c.fetchall()
+            for i,j in x:
+                spaces = ( len(max(list(x),key = fn)[0]) - len(i) )*' '
+                print(f'{i}{spaces}| {j}')
         else:
             print('Not available in database')
