@@ -34,10 +34,16 @@ with open(input('Enter file name: '), 'r') as f:
     l.append([name,number])
 print()
 sleep(1.15)
-print('Here are the changed numbers:')
+changed = []
+print('Here are the numbers:')
 for i,j in l:
   print(i,j)
   if (i,j) not in contacts:
     print('Saving new contact to db')
     with conn:
       c.execute(f'insert into contacts(name,number) values ("{i}","{j}")')
+    changed.append([i,j])
+print(f'Changed {len(changed)} total contacts - ',end = '')
+for i in changed:
+  print(i[0],end = ',')
+print()
