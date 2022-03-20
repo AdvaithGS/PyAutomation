@@ -3,13 +3,14 @@ import pyautogui as pgui
 from sqlite3 import connect
 from time import sleep
 from os import system
-c = connect('db.sql')
-conn = c.cursor()
+conn = connect('db.sql')
+c = conn.cursor()
 
 def get_contact(name:str):
   c.execute(f'select * from contacts where name = "{name}"')
+  lst = c.fetchall()
   try:
-    return c.fetchall()[0][1]
+    return lst[0][1]
   except:
      return False
 

@@ -79,7 +79,7 @@ while True:
             if get_contact(name):
                 print('It shall be done')
             else:
-                print('Error, name incorrect')
+                print(f'Error, name {name} incorrect')
                 continue
             if send_message(name,mes,when,shutdown = True if when > 7200 else False):
                 print('Done!')
