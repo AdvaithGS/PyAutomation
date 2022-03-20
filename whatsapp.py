@@ -23,9 +23,11 @@ def send_message(name:str,mes:str,when:int,shutdown:bool = False):
   text = '&text=' + mes if num.startswith('+') else ''
   sleep(when)
   open_new_tab(f'https://web.whatsapp.com/send?{type_num}{num}{text}')
-  sleep(65)
+  sleep(80)
+  pgui.hotkey('win','up')
+  sleep(3)
   width,height = pgui.size()
-  pgui.click(width/2,height/2)
+  pgui.click(width/2,height - 75)
   if type_num == 'code=':
     pgui.write(mes)
   pgui.press('enter')
