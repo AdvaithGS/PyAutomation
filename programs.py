@@ -1,5 +1,5 @@
 from sqlitedict import SqliteDict
-from os import popen
+from os import popen,system
 from requests import get
 from bs4 import BeautifulSoup
 from webbrowser import open_new_tab
@@ -77,19 +77,25 @@ while True:
             when = int(lst[2])
             mes = lst[3].replace(' ','%20')
             c.execute(f'select * from contacts where name = "{name}"')
-            lst = c.fetchall()[0]
+            try:
+                lst = c.fetchall()[0]
+            except:
+                print(f'Contact {name} Not Found')
+                continue
             print('It shall be done.')
             sleep(when)
             if lst[1].startswith('+'):
                 open_new_tab(f'https://web.whatsapp.com/send?phone={lst[1]}&text={mes}')
             else:
                 open_new_tab(f'https://web.whatsapp.com/accept?code={lst[1]}')
-            sleep(80)
+            sleep(65)
             width,height = pgui.size()
             pgui.click(width/2,height/2)
             if not lst[1].startswith('+'):
-                pgui.type(mes)
+                pgui.write(mes)
             pgui.press('enter')
+            if when > 7200:
+                system('shutdown /sg')
         elif prog == 'contacts':
             c.execute('select * from contacts')
             x = c.fetchall()
