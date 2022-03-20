@@ -1,11 +1,11 @@
 from sqlitedict import SqliteDict
-from os import popen,system
+from os import popen
 from requests import get
 from bs4 import BeautifulSoup
 from webbrowser import open_new_tab
 from pyautogui import hotkey
 import pyautogui as pgui
-from time import sleep
+from whatsapp import *
 import sqlite3
 conn = sqlite3.connect('db.sql')
 c = conn.cursor()
@@ -76,26 +76,15 @@ while True:
             name = lst[1]
             when = int(lst[2])
             mes = lst[3].replace(' ','%20')
-            c.execute(f'select * from contacts where name = "{name}"')
-            try:
-                lst = c.fetchall()[0]
-            except:
-                print(f'Contact {name} Not Found')
-                continue
-            print('It shall be done.')
-            sleep(when)
-            if lst[1].startswith('+'):
-                open_new_tab(f'https://web.whatsapp.com/send?phone={lst[1]}&text={mes}')
+            if get_contact(name):
+                print('It shall be done')
             else:
-                open_new_tab(f'https://web.whatsapp.com/accept?code={lst[1]}')
-            sleep(65)
-            width,height = pgui.size()
-            pgui.click(width/2,height/2)
-            if not lst[1].startswith('+'):
-                pgui.write(mes)
-            pgui.press('enter')
-            if when > 7200:
-                system('shutdown /sg')
+                print('Error, name incorrect')
+                continue
+            if send_message(name,mes,when,shutdown = True if when > 7200 else False):
+                print('Done!')
+            else:
+                print("Error")
         elif prog == 'contacts':
             c.execute('select * from contacts')
             x = c.fetchall()
