@@ -1,0 +1,33 @@
+from webbrowser import open_new_tab
+import pyautogui as pgui
+from sqlite3 import connect
+from time import sleep
+from os import system
+c = connect('db.sql')
+conn = c.cursor()
+
+def get_contact(name:str):
+  c.execute(f'select * from contacts where name = "{name}"')
+  try:
+    return c.fetchall()[0][1]
+  except:
+     return False
+
+def send_message(name:str,mes:str,when:int,shutdown:bool = False):
+  mes = mes.replace(' ','%20')
+  if not get_contact(name):
+    return False
+  num = get_contact(name)
+  type_num = 'phone=' if num.startswith('+') else 'code='
+  text = '&text=' + mes if num.startswith('+') else ''
+  sleep(when)
+  open_new_tab(f'https://web.whatsapp.com/send?{type_num}{num}{text}')
+  sleep(65)
+  width,height = pgui.size()
+  pgui.click(width/2,height/2)
+  if type_num == 'code=':
+    pgui.write(mes)
+  pgui.press('enter')
+  if shutdown:
+    system('shutdown /sg')
+  return True
