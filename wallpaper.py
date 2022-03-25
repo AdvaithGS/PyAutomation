@@ -9,3 +9,5 @@ with open('wallpaper.jpg','wb') as f:
   content = get(url).content
   f.write(content)
 ctypes.windll.user32.SystemParametersInfoW(20, 0, "C:\\Users\\K Padmavathy\\Downloads\\code\\Automation\\wallpaper.jpg" , 0)
+with open('wallpaper.txt','w') as f:
+  f.write(soup.find('a',attrs = {'class': 'image-list__picture-link'}).text)
