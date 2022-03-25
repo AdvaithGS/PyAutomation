@@ -14,7 +14,7 @@ def get_contact(name:str):
   except:
      return False
 
-def send_message(name:str,mes:str,when:int,shutdown:bool = False):
+def send_message(name:str,mes:str,when:int,shutdown:bool = False,close:bool = False):
   mes = mes.replace(' ','%20')
   if not get_contact(name):
     return False
@@ -31,6 +31,9 @@ def send_message(name:str,mes:str,when:int,shutdown:bool = False):
   if type_num == 'code=':
     pgui.write(mes)
   pgui.press('enter')
+  if close:
+    sleep(2)
+    pgui.hotkey('ctrl','w')
   if shutdown:
     system('shutdown /sg')
   return True
