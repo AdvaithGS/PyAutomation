@@ -85,6 +85,10 @@ while True:
                 print('Done!')
             else:
                 print("Error")
+        elif prog == 'wallpaper':
+            import wallpaper
+            with open('wallpaper.txt','r') as f:
+                print(f.read())
         elif prog == 'contacts':
             c.execute('select * from contacts')
             x = c.fetchall()
