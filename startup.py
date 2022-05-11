@@ -1,6 +1,9 @@
 from webbrowser import open_new_tab
 from os import popen
 from pyautogui import hotkey
+with open('wallpaper.txt','r') as f:
+    print(f.read())
+print()
 choice= int(input('Enter choice: '))
 if choice == 1:
     open_new_tab('https://discord.com/app')
