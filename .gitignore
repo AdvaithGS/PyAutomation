@@ -133,3 +133,4 @@ db.sqlite
 *.csv
 *schedule.py
 wallpaper.jpg
+*~
