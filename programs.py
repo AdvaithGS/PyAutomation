@@ -86,8 +86,7 @@ while True:
             else:
                 print("Error")
         elif prog == 'wallpaper':
-            from wallpaper import set_wallpaper
-            set_wallpaper()
+            import wallpaper
             with open('wallpaper.txt','r') as f:
                 print(f.read())
         elif prog == 'contacts':
