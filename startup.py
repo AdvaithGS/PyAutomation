@@ -1,6 +1,8 @@
 from webbrowser import open_new_tab
 from os import popen
 from pyautogui import hotkey
+import wallpaper
+import git
 with open('wallpaper.txt','r') as f:
     print(f.read())
 print()
